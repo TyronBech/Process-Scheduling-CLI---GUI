@@ -233,4 +233,3 @@ class gui_object(object):
         self.srtf_b.config(state=tk.DISABLED)
         self.rr_b.config(state=tk.DISABLED)
 
-gui = gui_object()
