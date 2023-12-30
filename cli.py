@@ -18,32 +18,30 @@ class cli_object(object):
             print("F - Round Robin")
             print("G - Exit")
             choice = input("Enter your choice: ").upper()
-            print(f"Your choice: {choice}")
             if choice == "C" or choice == "E":
                 inputting = cli_input(is_priority=True)
-                sorted_input = sorted(inputting.raw_input, key= lambda x: (x.at, x.p_id))
                 result = None
                 if choice == "C":
-                    result = al.NPP(sorted_input)
+                    result = al.NPP(inputting.raw_input)
                 else:
-                    result = al.PP(sorted_input)
+                    result = al.PP(inputting.raw_input)
                 list_data = [[p.p_id, p.at, p.bt, p.pr, p.ct, p.tt, p.wt] for p in result.processes]
                 header = ["Process ID", "Arrival Time", "Burst Time", "Priority", "Completion Time", "Turnaround Time", "Waiting Time"]
             elif choice == "A" or choice == "B" or choice == "D" or choice == "F":
                 if choice == "F":
                     inputting = cli_input(is_priority=False)
                     quantum = int(input("Enter quantum time: "))
-                    sorted_input = sorted(inputting.raw_input, key= lambda x: (x.at, x.p_id))
-                    result = al.RR(sorted_input, quantum)
+
+                    result = al.RR(inputting.raw_input, quantum)
                 else:
                     inputting = cli_input(is_priority=False)
-                    sorted_input = sorted(inputting.raw_input, key= lambda x: (x.at, x.p_id))
+
                     if choice == "A":
-                        result = al.FCFS(sorted_input)
+                        result = al.FCFS(inputting.raw_input)
                     elif choice == "B":
-                        result = al.SJF(sorted_input)
+                        result = al.SJF(inputting.raw_input)
                     elif choice == "D":
-                        result = al.SRTF(sorted_input)
+                        result = al.SRTF(inputting.raw_input)
                 list_data = [[p.p_id, p.at, p.bt, p.ct, p.tt, p.wt] for p in result.processes]
                 header = ["Process ID", "Arrival Time", "Burst Time", "Completion Time", "Turnaround Time", "Waiting Time"]
             elif choice == "G":

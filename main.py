@@ -1,9 +1,10 @@
 import os
 from cli import cli_object
+from gui import gui_object
 def cli_method():
     cli_object()
 def gui_method():
-    pass
+    gui_object()
 
 def main():
     while True:

@@ -1,6 +1,7 @@
 class FCFS(object):
     def __init__(self, _processes):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes)
     def computation(self, processes):
         time_sum = sum(process.bt for process in processes)
@@ -24,6 +25,7 @@ class FCFS(object):
 class SJF(object):
     def __init__(self, _processes):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes)
     def computation(self, processes):
         time_sum = sum(process.bt for process in processes)
@@ -48,6 +50,7 @@ class SJF(object):
 class NPP(object):
     def __init__(self, _processes):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes)
     def computation(self, processes):
         time_sum = sum(process.bt for process in processes)
@@ -72,6 +75,7 @@ class NPP(object):
 class SRTF(object):
     def __init__(self, _processes):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes)
     def computation(self, processes):
         time_sum = sum(process.bt for process in processes)
@@ -95,6 +99,7 @@ class SRTF(object):
 class PP(object):
     def __init__(self, _processes):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes)
     def computation(self, processes):
         time_sum = sum(process.bt for process in processes)
@@ -118,6 +123,7 @@ class PP(object):
 class RR(object):
     def __init__(self, _processes, quantum):
         self.processes = _processes
+        self.processes = sorted(self.processes, key=lambda x: (x.at, x.p_id))
         self.computation(self.processes, quantum)
     def computation(self, processes, quantum):
         time_sum = sum(process.bt for process in processes)
