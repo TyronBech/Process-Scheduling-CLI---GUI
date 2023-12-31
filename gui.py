@@ -32,7 +32,7 @@ class gui_object(object):
         self.window.iconify()
         main_window = tk.Toplevel(self.window)
         main_window.geometry("900x700")
-        main_window.title("First Come First Serve")
+        main_window.title("Process Scheduling")
         main_window.resizable(False, False)
         main_frame = tk.Frame(main_window, bg="#C499F3")
         main_frame.pack(expand=True, fill=tk.BOTH)
@@ -41,7 +41,7 @@ class gui_object(object):
         if algo == 1:
             Priority_t = gui_input(main_frame, "Enter Priority Time")
             self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm=algo_title, frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, Priority=Priority_t))
+                                  command=lambda: self.algo(_algorithm=algo_title, frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, Priority=Priority_t, is_pr=True))
             self.submit_b.pack(pady=10)
         elif algo == 2:
             Quantum_t = gui_input(main_frame, "Enter Quantum Time")
