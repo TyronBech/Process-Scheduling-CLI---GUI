@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 import tkinter.messagebox
 from class_module import gui_input, Process
 import algorithms as al
@@ -15,21 +14,20 @@ class gui_object(object):
         title.pack(pady=10)
         choices = tk.Label(main_frame, text="Choose an algorithm", font=("Helvetica", 10, "bold"), fg="#33186B", bg="#C499F3")
         choices.pack(pady=10)
-        self.fcfs_b = tk.Button(main_frame, text="FCFS", width=10, height=1, command=lambda: self.fcfs_window())
+        self.fcfs_b = tk.Button(main_frame, text="FCFS", width=10, height=1, command=lambda: self.process_window(algo_title="fcfs"))
         self.fcfs_b.pack(padx=10, pady=7)
-        self.sjf_b = tk.Button(main_frame, text="SJF", width=10, height=1, command=lambda: self.sjf_window())
+        self.sjf_b = tk.Button(main_frame, text="SJF", width=10, height=1, command=lambda: self.process_window(algo_title="sjf"))
         self.sjf_b.pack(padx=10, pady=7)
-        self.npp_b = tk.Button(main_frame, text="NPP", width=10, height=1, command=lambda: self.npp_window())
+        self.npp_b = tk.Button(main_frame, text="NPP", width=10, height=1, command=lambda: self.process_window(algo_title="npp", algo=1))
         self.npp_b.pack(padx=10, pady=7)
-        self.pp_b = tk.Button(main_frame, text="PP", width=10, height=1, command=lambda: self.pp_window())
+        self.pp_b = tk.Button(main_frame, text="PP", width=10, height=1, command=lambda: self.process_window(algo_title="pp", algo=1))
         self.pp_b.pack(padx=10, pady=7)
-        self.srtf_b = tk.Button(main_frame, text="SRTF", width=10, height=1, command=lambda: self.srtf_window())
+        self.srtf_b = tk.Button(main_frame, text="SRTF", width=10, height=1, command=lambda: self.process_window(algo_title="srtf"))
         self.srtf_b.pack(padx=10, pady=7)
-        self.rr_b = tk.Button(main_frame, text="RR", width=10, height=1, command=lambda: self.rr_window())
+        self.rr_b = tk.Button(main_frame, text="RR", width=10, height=1, command=lambda: self.process_window(algo_title="rr", algo=2))
         self.rr_b.pack(padx=10, pady=7)
         self.window.mainloop()
-
-    def fcfs_window(self):
+    def process_window(self, algo_title, algo = 0):
         self.disable()
         self.window.iconify()
         main_window = tk.Toplevel(self.window)
@@ -40,97 +38,23 @@ class gui_object(object):
         main_frame.pack(expand=True, fill=tk.BOTH)
         Arrival_t = gui_input(main_frame, "Enter Arrival Time")
         Burst_t = gui_input(main_frame, "Enter Burst Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="fcfs", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t))
-        self.submit_b.pack(pady=10)
+        if algo == 1:
+            Priority_t = gui_input(main_frame, "Enter Priority Time")
+            self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
+                                  command=lambda: self.algo(_algorithm=algo_title, frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, Priority=Priority_t))
+            self.submit_b.pack(pady=10)
+        elif algo == 2:
+            Quantum_t = gui_input(main_frame, "Enter Quantum Time")
+            self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
+                                  command=lambda: self.algo(_algorithm=algo_title, frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, quantum=Quantum_t))
+            self.submit_b.pack(pady=10)
+        else:
+            self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
+                                  command=lambda: self.algo(_algorithm=algo_title, frame=main_frame, Arrival=Arrival_t, Burst=Burst_t))
+            self.submit_b.pack(pady=10)
         self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
         self.exit_b.pack(pady=10)
 
-    def sjf_window(self):
-        self.disable()
-        self.window.iconify()
-        main_window = tk.Toplevel(self.window)
-        main_window.geometry("900x700")
-        main_window.title("Shortest Job First")
-        main_window.resizable(False, False)
-        main_frame = tk.Frame(main_window, bg="#C499F3")
-        main_frame.pack(expand=True, fill=tk.BOTH)
-        Arrival_t = gui_input(main_frame, "Enter Arrival Time")
-        Burst_t = gui_input(main_frame, "Enter Burst Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="sjf", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t))
-        self.submit_b.pack(pady=10)
-        self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
-        self.exit_b.pack()
-    def npp_window(self):
-        self.disable()
-        self.window.iconify()
-        main_window = tk.Toplevel(self.window)
-        main_window.geometry("900x700")
-        main_window.title("Non-Preemtive Priority")
-        main_window.resizable(False, False)
-        main_frame = tk.Frame(main_window, bg="#C499F3")
-        main_frame.pack(expand=True, fill=tk.BOTH)
-        Arrival_t = gui_input(main_frame, "Enter Arrival Time")
-        Burst_t = gui_input(main_frame, "Enter Burst Time")
-        Priority_t = gui_input(main_frame, "Enter Priority Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="npp", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, Priority=Priority_t, is_pr=True))
-        self.submit_b.pack(pady=10)
-        self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
-        self.exit_b.pack()
-
-    def pp_window(self):
-        self.disable()
-        self.window.iconify()
-        main_window = tk.Toplevel(self.window)
-        main_window.geometry("900x700")
-        main_window.title("Preemtive Priority")
-        main_window.resizable(False, False)
-        main_frame = tk.Frame(main_window, bg="#C499F3")
-        main_frame.pack(expand=True, fill=tk.BOTH)
-        Arrival_t = gui_input(main_frame, "Enter Arrival Time")
-        Burst_t = gui_input(main_frame, "Enter Burst Time")
-        Priority_t = gui_input(main_frame, "Enter Priority Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="pp", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, Priority=Priority_t, is_pr=True))
-        self.submit_b.pack(pady=10)
-        self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
-        self.exit_b.pack()
-
-    def srtf_window(self):
-        self.disable()
-        self.window.iconify()
-        main_window = tk.Toplevel(self.window)
-        main_window.geometry("900x700")
-        main_window.title("Shortest Remaining Time First")
-        main_window.resizable(False, False)
-        main_frame = tk.Frame(main_window, bg="#C499F3")
-        main_frame.pack(expand=True, fill=tk.BOTH)
-        Arrival_t = gui_input(main_frame, "Enter Arrival Time")
-        Burst_t = gui_input(main_frame, "Enter Burst Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="srtf", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t))
-        self.submit_b.pack(pady=10)
-        self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
-        self.exit_b.pack()
-    def rr_window(self):
-        self.disable()
-        self.window.iconify()
-        main_window = tk.Toplevel(self.window)
-        main_window.geometry("900x700")
-        main_window.title("Round Robin")
-        main_window.resizable(False, False)
-        main_frame = tk.Frame(main_window, bg="#C499F3")
-        main_frame.pack(expand=True, fill=tk.BOTH)
-        Arrival_t = gui_input(main_frame, "Enter Arrival Time")
-        Burst_t = gui_input(main_frame, "Enter Burst Time")
-        Quantum_t = gui_input(main_frame, "Enter Quantum Time")
-        self.submit_b = tk.Button(main_frame, text="Submit", width=10, height=1,
-                                  command=lambda: self.algo(_algorithm="rr", frame=main_frame, Arrival=Arrival_t, Burst=Burst_t, quantum=Quantum_t))
-        self.submit_b.pack(pady=10)
-        self.exit_b = tk.Button(main_frame, text="Exit", width=10, height=1, command=lambda: self.exit(main_window))
-        self.exit_b.pack()
     def algo(self, _algorithm, frame, Arrival, Burst, Priority = None, quantum = None, is_pr = False):
         try:
             processes = []
@@ -232,4 +156,3 @@ class gui_object(object):
         self.pp_b.config(state=tk.DISABLED)
         self.srtf_b.config(state=tk.DISABLED)
         self.rr_b.config(state=tk.DISABLED)
-

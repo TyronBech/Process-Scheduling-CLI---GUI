@@ -1,10 +1,6 @@
 import os
 from cli import cli_object
 from gui import gui_object
-def cli_method():
-    cli_object()
-def gui_method():
-    gui_object()
 
 def main():
     while True:
@@ -13,10 +9,10 @@ def main():
         print("B - GUI Method")
         choice = input("Choose one option: ").upper()
         if choice == "A":
-            cli_method()
+            cli_object()
             break
         elif choice == "B":
-            gui_method()
+            gui_object()
             break
         else:
             print("Invalid input, please try again")
